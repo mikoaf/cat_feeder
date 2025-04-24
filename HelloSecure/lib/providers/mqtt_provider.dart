@@ -1,5 +1,7 @@
+import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:hellosecure/main.dart';
 import 'package:mqtt_client/mqtt_client.dart';
 import 'package:mqtt_client/mqtt_server_client.dart';
 
@@ -23,8 +25,30 @@ class MQTTProvider with ChangeNotifier {
   double? gyroX;
   double? gyroY;
   double? gyroZ;
+  int? touch;
+
+  Timer? warningTimer;
+  bool isWarningActive = false;
 
   bool isConnected = false;
+
+  set _touch(int newValue){
+    touch = newValue;
+
+    if(newValue == 1 && !isWarningActive){
+      isWarningActive = true;
+
+      navigatorKey.currentState?.pushNamed('/warning');
+
+      warningTimer = Timer(Duration(seconds: 5), (){
+        if(navigatorKey.currentState?.canPop() ?? false){
+          navigatorKey.currentState?.pop();
+        }
+        isWarningActive = false;
+      });
+    }
+    notifyListeners();
+  }
 
   MQTTProvider() {
     _connectToBroker();
@@ -84,6 +108,8 @@ class MQTTProvider with ChangeNotifier {
       gyroX = (data['gyroX'] ?? 0).toDouble();
       gyroY = (data['gyroY'] ?? 0).toDouble();
       gyroZ = (data['gyroZ'] ?? 0).toDouble();
+
+      _touch = (data['touch'] ?? 0);
 
       notifyListeners();
     } catch (e) {
