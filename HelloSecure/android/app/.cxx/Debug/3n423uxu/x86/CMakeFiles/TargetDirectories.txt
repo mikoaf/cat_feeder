@@ -1,0 +1,2 @@
+D:/cat_feeder/HelloSecure/android/app/.cxx/Debug/3n423uxu/x86/CMakeFiles/edit_cache.dir
+D:/cat_feeder/HelloSecure/android/app/.cxx/Debug/3n423uxu/x86/CMakeFiles/rebuild_cache.dir
