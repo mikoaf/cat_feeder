@@ -41,7 +41,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
           if(current_time - last_time >= detect_time){
             Serial.println("Kocheng detect");
             myServo.write(55);
-            delay(1000);
+            delay(5000);
             myServo.write(15);
             last_time = current_time; 
           }

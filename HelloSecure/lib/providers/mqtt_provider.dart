@@ -97,17 +97,17 @@ class MQTTProvider with ChangeNotifier {
     try {
       final data = json.decode(payload);
 
-      latitude = (data['latitude'] ?? 0).toDouble();
-      longitude = (data['longitude'] ?? 0).toDouble();
-      suhu = (data['suhu'] ?? 0).toDouble();
+      latitude = double.tryParse(data['latitude'].toString()) ?? 0.0;
+      longitude = double.tryParse(data['longitude'].toString()) ?? 0.0;
+      suhu = double.tryParse(data['temperature'].toString()) ?? 0.0;
 
-      accelX = (data['accelX'] ?? 0).toDouble();
-      accelY = (data['accelY'] ?? 0).toDouble();
-      accelZ = (data['accelZ'] ?? 0).toDouble();
+      accelX = double.tryParse(data['accelX'].toString()) ?? 0.0;
+      accelY = double.tryParse(data['accelY'].toString()) ?? 0.0;
+      accelZ = double.tryParse(data['accelZ'].toString()) ?? 0.0;
 
-      gyroX = (data['gyroX'] ?? 0).toDouble();
-      gyroY = (data['gyroY'] ?? 0).toDouble();
-      gyroZ = (data['gyroZ'] ?? 0).toDouble();
+      gyroX = double.tryParse(data['gyroX'].toString()) ?? 0.0;
+      gyroY = double.tryParse(data['gyroY'].toString()) ?? 0.0;
+      gyroZ = double.tryParse(data['gyroZ'].toString()) ?? 0.0;
 
       _touch = (data['touch'] ?? 0);
 
